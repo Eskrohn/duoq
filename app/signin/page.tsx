@@ -1,6 +1,6 @@
-import SignupForm from "./signup-form";
+import SigninForm from "./signin-form";
 
-export default function SignupPage() {
+export default function SigninPage() {
   const providers = {
     google:
       Boolean(process.env.GOOGLE_CLIENT_ID) &&
@@ -10,5 +10,5 @@ export default function SignupPage() {
       Boolean(process.env.DISCORD_CLIENT_SECRET),
   };
 
-  return <SignupForm providers={providers} />;
+  return <SigninForm providers={providers} />;
 }
