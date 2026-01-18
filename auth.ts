@@ -1,4 +1,3 @@
-import NextAuth from "next-auth";
 import Discord from "next-auth/providers/discord";
 import Google from "next-auth/providers/google";
 
@@ -22,7 +21,7 @@ if (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET) {
   );
 }
 
-export const { handlers, auth } = NextAuth({
+export const authOptions = {
   providers,
   pages: {
     signIn: "/signin",
@@ -30,4 +29,4 @@ export const { handlers, auth } = NextAuth({
   session: {
     strategy: "jwt",
   },
-});
+};
