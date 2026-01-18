@@ -57,7 +57,7 @@ export default function SignupForm({
       </h1>
       <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
         DuoQ is 18+ only. We verify age at signup and store your attestation
-        for compliance. Discord and Steam are the primary sign-in options.
+        for compliance. Sign in with Discord, Steam, or a DuoQ account.
       </p>
 
       <div className="mt-8 space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">

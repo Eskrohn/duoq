@@ -35,8 +35,8 @@ export default function SigninForm({
         Welcome back
       </h1>
       <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-        Sign in to continue matching. Discord and Steam are the primary options
-        for DuoQ. If you are new here, head to signup to verify your age first.
+        Sign in to continue matching with Discord, Steam, or a DuoQ account. If
+        you are new here, head to signup to verify your age first.
       </p>
 
       <div className="mt-8 space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6">

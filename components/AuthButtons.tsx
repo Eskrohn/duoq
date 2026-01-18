@@ -23,13 +23,6 @@ const PROVIDERS: Array<{
   },
 ];
 
-function labelFor(provider: ProviderKey, enabled: boolean) {
-  if (provider === "steam" && !enabled) {
-    return "Steam login (setup in progress)";
-  }
-  return PROVIDERS.find((item) => item.id === provider)?.label ?? "Continue";
-}
-
 type AuthButtonsProps = {
   providers: ProviderState;
   disabled?: boolean;
@@ -54,7 +47,7 @@ export default function AuthButtons({ providers, disabled }: AuthButtonsProps) {
             onClick={() => signIn(provider.id)}
             disabled={disabled || !isEnabled}
           >
-            {labelFor(provider.id, isEnabled)}
+            {provider.label}
           </button>
         );
       })}

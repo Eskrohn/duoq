@@ -2,6 +2,8 @@ import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Discord from "next-auth/providers/discord";
 
+import SteamProvider from "@/lib/steam-provider";
+
 const providers: NextAuthOptions["providers"] = [];
 
 if (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET) {
@@ -9,6 +11,15 @@ if (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET) {
     Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    })
+  );
+}
+
+if (process.env.STEAM_API_KEY && process.env.NEXTAUTH_URL) {
+  providers.push(
+    SteamProvider({
+      clientId: process.env.STEAM_API_KEY,
+      clientSecret: process.env.STEAM_API_KEY,
     })
   );
 }

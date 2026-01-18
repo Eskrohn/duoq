@@ -5,7 +5,7 @@ export default function SignupPage() {
     discord:
       Boolean(process.env.DISCORD_CLIENT_ID) &&
       Boolean(process.env.DISCORD_CLIENT_SECRET),
-    steam: process.env.STEAM_LOGIN_ENABLED === "true",
+    steam: Boolean(process.env.STEAM_API_KEY),
   };
 
   const credentialsEnabled =
