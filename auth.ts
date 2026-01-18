@@ -1,7 +1,8 @@
+import type { NextAuthOptions } from "next-auth";
 import Discord from "next-auth/providers/discord";
 import Google from "next-auth/providers/google";
 
-const providers = [];
+const providers: NextAuthOptions["providers"] = [];
 
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   providers.push(
@@ -21,7 +22,7 @@ if (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET) {
   );
 }
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers,
   pages: {
     signIn: "/signin",
