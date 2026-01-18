@@ -60,6 +60,18 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/signin",
   },
+  debug: true,
+  logger: {
+    error(code, metadata) {
+      console.error("[NextAuth][error]", code, metadata);
+    },
+    warn(code) {
+      console.warn("[NextAuth][warn]", code);
+    },
+    debug(code, metadata) {
+      console.debug("[NextAuth][debug]", code, metadata);
+    },
+  },
   session: {
     strategy: "database",
   },
