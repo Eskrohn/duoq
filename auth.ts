@@ -1,8 +1,10 @@
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Discord from "next-auth/providers/discord";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import SteamProvider from "@/lib/steam-provider";
+import { prisma } from "@/lib/prisma";
 
 const providers: NextAuthOptions["providers"] = [];
 
@@ -53,11 +55,12 @@ if (process.env.DUOQ_LOCAL_EMAIL && process.env.DUOQ_LOCAL_PASSWORD) {
 }
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers,
   pages: {
     signIn: "/signin",
   },
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
 };
