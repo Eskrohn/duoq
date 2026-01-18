@@ -2,12 +2,28 @@ import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "@/auth";
+import ProfileForm from "@/app/profile/profile-form";
+import { prisma } from "@/lib/prisma";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
+  const email = session?.user?.email;
+
+  const user = email
+    ? await prisma.user.findUnique({
+        where: { email },
+        select: { id: true },
+      })
+    : null;
+
+  const profile = user
+    ? await prisma.profile.findUnique({
+        where: { userId: user.id },
+      })
+    : null;
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 pb-20 pt-12">
+    <div className="mx-auto w-full max-w-4xl px-6 pb-20 pt-12">
       <Link
         href="/"
         className="text-xs uppercase tracking-[0.35em] text-[color:var(--accent)]"
@@ -18,8 +34,8 @@ export default async function ProfilePage() {
         Your Profile
       </h1>
       <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-        This is the first protected page. Next we will build the full profile
-        editor here.
+        Build your profile so you show up in discovery. Choose your games, set
+        your vibe, and add a short bio.
       </p>
 
       <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -30,6 +46,22 @@ export default async function ProfilePage() {
           {session?.user?.name ?? session?.user?.email ?? "Unknown"}
         </p>
       </div>
+
+      <ProfileForm
+        initialData={
+          profile
+            ? {
+                username: profile.username,
+                games: profile.games,
+                platform: profile.platform,
+                playstyle: profile.playstyle,
+                lookingFor: profile.lookingFor,
+                bio: profile.bio,
+                timezone: profile.timezone,
+              }
+            : null
+        }
+      />
     </div>
   );
 }
