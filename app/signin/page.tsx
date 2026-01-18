@@ -2,13 +2,17 @@ import SigninForm from "./signin-form";
 
 export default function SigninPage() {
   const providers = {
-    google:
-      Boolean(process.env.GOOGLE_CLIENT_ID) &&
-      Boolean(process.env.GOOGLE_CLIENT_SECRET),
     discord:
       Boolean(process.env.DISCORD_CLIENT_ID) &&
       Boolean(process.env.DISCORD_CLIENT_SECRET),
+    steam: process.env.STEAM_LOGIN_ENABLED === "true",
   };
 
-  return <SigninForm providers={providers} />;
+  const credentialsEnabled =
+    Boolean(process.env.DUOQ_LOCAL_EMAIL) &&
+    Boolean(process.env.DUOQ_LOCAL_PASSWORD);
+
+  return (
+    <SigninForm providers={providers} credentialsEnabled={credentialsEnabled} />
+  );
 }

@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 
-type ProviderKey = "google" | "discord";
+type ProviderKey = "discord" | "steam";
 
 type ProviderState = Record<ProviderKey, boolean>;
 
@@ -12,16 +12,23 @@ const PROVIDERS: Array<{
   accent: string;
 }> = [
   {
-    id: "google",
-    label: "Continue with Google",
-    accent: "bg-white text-black hover:bg-[#f2f2f2]",
-  },
-  {
     id: "discord",
     label: "Continue with Discord",
     accent: "bg-[#5865f2] text-white hover:bg-[#4752c4]",
   },
+  {
+    id: "steam",
+    label: "Continue with Steam",
+    accent: "bg-[#1b2838] text-white hover:bg-[#243447]",
+  },
 ];
+
+function labelFor(provider: ProviderKey, enabled: boolean) {
+  if (provider === "steam" && !enabled) {
+    return "Steam login (setup in progress)";
+  }
+  return PROVIDERS.find((item) => item.id === provider)?.label ?? "Continue";
+}
 
 type AuthButtonsProps = {
   providers: ProviderState;
@@ -47,13 +54,13 @@ export default function AuthButtons({ providers, disabled }: AuthButtonsProps) {
             onClick={() => signIn(provider.id)}
             disabled={disabled || !isEnabled}
           >
-            {provider.label}
+            {labelFor(provider.id, isEnabled)}
           </button>
         );
       })}
       {!anyEnabled && (
         <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--accent-2)]">
-          Auth providers not configured yet
+          Social logins not configured yet
         </p>
       )}
     </div>
