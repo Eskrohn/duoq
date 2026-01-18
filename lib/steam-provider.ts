@@ -1,3 +1,4 @@
+import type { Profile } from "next-auth";
 import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers/oauth";
 
 type SteamProfile = {
@@ -103,7 +104,7 @@ export default function SteamProvider(
           throw new Error("Steam profile not found");
         }
 
-        return profile;
+        return profile as unknown as Profile;
       },
     },
     profile(profile) {
