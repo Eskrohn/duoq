@@ -1,5 +1,7 @@
 import SigninForm from "./signin-form";
 
+export const dynamic = "force-dynamic";
+
 export default function SigninPage() {
   const hasEnv = (value?: string) => Boolean(value && value.trim().length > 0);
   const providers = {
