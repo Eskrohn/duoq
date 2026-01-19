@@ -8,11 +8,14 @@ import { prisma } from "@/lib/prisma";
 
 const providers: NextAuthOptions["providers"] = [];
 
-if (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET) {
+const discordClientId = process.env.DISCORD_CLIENT_ID?.trim();
+const discordClientSecret = process.env.DISCORD_CLIENT_SECRET?.trim();
+
+if (discordClientId && discordClientSecret) {
   providers.push(
     Discord({
-      clientId: process.env.DISCORD_CLIENT_ID,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      clientId: discordClientId,
+      clientSecret: discordClientSecret,
     })
   );
 }
