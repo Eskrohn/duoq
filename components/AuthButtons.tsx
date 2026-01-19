@@ -35,20 +35,27 @@ export default function AuthButtons({ providers, disabled }: AuthButtonsProps) {
     <div className="space-y-3">
       {PROVIDERS.map((provider) => {
         const isEnabled = providers[provider.id];
+        const canNavigate = isEnabled && !disabled;
         return (
-          <button
-            key={provider.id}
-            type="button"
-            className={`w-full rounded-full px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition ${
-              isEnabled && !disabled
-                ? provider.accent
-                : "cursor-not-allowed border border-white/10 bg-white/5 text-white/40"
-            }`}
-            onClick={() => signIn(provider.id)}
-            disabled={disabled || !isEnabled}
-          >
-            {provider.label}
-          </button>
+          <div key={provider.id}>
+            {canNavigate ? (
+              <a
+                href={`/api/auth/signin/${provider.id}?callbackUrl=/profile`}
+                className={`block w-full rounded-full px-5 py-3 text-center text-sm font-semibold uppercase tracking-[0.2em] transition ${provider.accent}`}
+                onClick={() => signIn(provider.id, { callbackUrl: "/profile" })}
+              >
+                {provider.label}
+              </a>
+            ) : (
+              <button
+                type="button"
+                className="w-full cursor-not-allowed rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/40"
+                disabled
+              >
+                {provider.label}
+              </button>
+            )}
+          </div>
         );
       })}
       {!anyEnabled && (
