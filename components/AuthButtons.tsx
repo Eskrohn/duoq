@@ -1,7 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-
 type ProviderKey = "discord" | "steam";
 
 type ProviderState = Record<ProviderKey, boolean>;
@@ -42,9 +40,10 @@ export default function AuthButtons({ providers, disabled }: AuthButtonsProps) {
               <a
                 href={`/api/auth/signin/${provider.id}?callbackUrl=/profile`}
                 className={`block w-full rounded-full px-5 py-3 text-center text-sm font-semibold uppercase tracking-[0.2em] transition ${
-                  isEnabled ? provider.accent : "border border-white/10 bg-white/5 text-white/60"
+                  isEnabled
+                    ? provider.accent
+                    : "border border-white/10 bg-white/5 text-white/60"
                 }`}
-                onClick={() => signIn(provider.id, { callbackUrl: "/profile" })}
               >
                 {provider.label}
               </a>
